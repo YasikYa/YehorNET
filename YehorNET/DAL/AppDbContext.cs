@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YehorNET.DAL.Domain;
-using YehorNET.DAL.ModelConfigurations;
 
 namespace YehorNET.DAL
 {
@@ -26,7 +25,7 @@ namespace YehorNET.DAL
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            DbInitializer.SeedData(modelBuilder);
+            
         }
     }
 }
