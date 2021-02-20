@@ -15,6 +15,7 @@ namespace YehorNET.Controllers
 
         public DoctorsController(AppDbContext dbContext) => _dbContext = dbContext;
 
+        [HttpGet]
         public IActionResult List(string searchString, string[] treatments)
         {
             var selectQuery = _dbContext.Doctors.AsQueryable();
@@ -36,6 +37,7 @@ namespace YehorNET.Controllers
             return View(result);
         }
 
+        [HttpGet]
         public IActionResult Details(Guid id)
         {
             var detailsModel = _dbContext.Doctors.Where(d => d.Id == id)
@@ -64,6 +66,7 @@ namespace YehorNET.Controllers
             return View(detailsModel);
         }
 
+        [HttpPost]
         public IActionResult Comment(Guid id, CommentViewModel model)
         {
             _dbContext.DoctorsComments.Add(new Comment
