@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using YehorNET.DAL;
+using YehorNET.DAL.Domain;
 using YehorNET.Models;
 
 namespace YehorNET.Controllers
@@ -61,6 +62,20 @@ namespace YehorNET.Controllers
                 }).FirstOrDefault();
 
             return View(detailsModel);
+        }
+
+        public IActionResult Comment(Guid id, CommentViewModel model)
+        {
+            _dbContext.DoctorsComments.Add(new Comment
+            {
+                Id = Guid.NewGuid(),
+                Comments = model.Text,
+                Rate = (int)model.Rate,
+                Doctor = new Doctor { Id = id }
+            });
+            _dbContext.SaveChanges();
+
+            return RedirectToAction(nameof(Details), new { id });
         }
     }
 }
