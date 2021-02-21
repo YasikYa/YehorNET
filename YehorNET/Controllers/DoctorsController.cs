@@ -30,7 +30,7 @@ namespace YehorNET.Controllers
             {
                 Id = d.Id,
                 Name = d.Name,
-                Rate = d.Comments.Count == 0 ? 0 : d.Comments.Select(c => c.Rate).Average(),
+                Rate = d.Comments.Count == 0 ? 0 : Math.Round(d.Comments.Select(c => c.Rate).Average(), 2),
                 CommentsCount = d.Comments.Count,
                 Treats = d.Treatments.Select(tb => tb.Name).ToList()
             }).ToList();
@@ -48,7 +48,7 @@ namespace YehorNET.Controllers
                     Name = d.Name,
                     Age = d.Age,
                     ContactPhone = d.ContactPhone,
-                    Rating = d.Comments.Count == 0 ? 0 : d.Comments.Select(c => c.Rate).Average(),
+                    Rating = d.Comments.Count == 0 ? 0 : Math.Round(d.Comments.Select(c => c.Rate).Average(), 2),
                     ProffecionalExperienceFrom = d.ProffecionalExperienceFrom,
                     VisitPrice = d.VisitPrice,
                     Clinic = new ClinicViewModel
