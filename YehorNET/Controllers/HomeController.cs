@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -18,7 +19,20 @@ namespace YehorNET.Controllers
 
         public IActionResult Index()
         {
+            CreateTreatFilter();
             return View();
+        }
+
+        private void CreateTreatFilter()
+        {
+            var selectList = new List<SelectListItem>();
+            var existingTreats = _dbContext.TreatmentBranches.ToList();
+            selectList.Add(new SelectListItem("All", null, true));
+            foreach (var treat in existingTreats)
+            {
+                selectList.Add(new SelectListItem(treat.Name, treat.Id.ToString()));
+            }
+            ViewBag.TreatFilter = selectList;
         }
     }
 }

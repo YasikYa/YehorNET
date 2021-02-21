@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,14 +17,14 @@ namespace YehorNET.Controllers
         public DoctorsController(AppDbContext dbContext) => _dbContext = dbContext;
 
         [HttpGet]
-        public IActionResult List(string searchString, string[] treatments)
+        public IActionResult List(string searchString, Guid[] treatments)
         {
             var selectQuery = _dbContext.Doctors.AsQueryable();
 
             if (!string.IsNullOrEmpty(searchString))
                 selectQuery = selectQuery.Where(d => d.Name.Contains(searchString));
             if (treatments != null && treatments.Length != 0)
-                selectQuery = selectQuery.Where(d => d.Treatments.Any(t => treatments.Any(filterTreatment => filterTreatment.Equals(t))));
+                selectQuery = selectQuery.Where(d => d.Treatments.Any(t => treatments.Any(filterTreatment => filterTreatment.Equals(t.Id))));
 
             var result = selectQuery.Select(d => new DoctorsListItemViewModel
             {

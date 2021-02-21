@@ -3,9 +3,10 @@
 }
 
 <div class="text-center">
-    @using(Html.BeginForm("List", "Doctors", FormMethod.Get))
+    @using (Html.BeginForm("List", "Doctors", FormMethod.Get))
     {
-        @Html.TextBox("searchString")
+        @Html.TextBox("searchString", null, null, new { @class = "form-control" })
+        @Html.DropDownList("treatments", (IEnumerable<SelectListItem>)ViewBag.TreatFilter, new { @class = "custom-select" })
         <input type="submit" value="Search" class="btn btn-primary">
     }
 </div>
