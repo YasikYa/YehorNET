@@ -40,7 +40,7 @@
                 }
             </td>
             <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id })
+                @Html.ActionLink("Details", "Details", new { id = item.Id, searchListUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })
             </td>
         </tr>
 }

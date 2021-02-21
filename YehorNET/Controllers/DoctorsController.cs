@@ -39,7 +39,7 @@ namespace YehorNET.Controllers
         }
 
         [HttpGet]
-        public IActionResult Details(Guid id)
+        public IActionResult Details(Guid id, string searchListUrl)
         {
             var detailsModel = _dbContext.Doctors.Where(d => d.Id == id)
                 .Select(d => new DoctorDetailsViewModel
@@ -65,6 +65,7 @@ namespace YehorNET.Controllers
                     }).OrderBy(c => c.Date).ToList()
                 }).FirstOrDefault();
 
+            ViewBag.ReturnUrl = searchListUrl;
             return View(detailsModel);
         }
 
