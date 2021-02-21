@@ -39,6 +39,28 @@ namespace YehorNET.DAL
                 EducationUnits = new List<DoctorEducation> { new DoctorEducation { Id = Guid.NewGuid(), Title = "KNMU", SubTitle = "Test subtitle", From = new DateTime(1996, 9, 1), To = new DateTime(2000, 6, 1) } },
                 Comments = new List<Comment> { new Comment { Id = Guid.NewGuid(), Rate = 5, Text = "Nice!", Date = DateTime.Now.AddDays(-1) } }
             });
+            context.Doctors.Add(new Doctor
+            {
+                Id = Guid.NewGuid(),
+                Name = "Juk Maickyi",
+                Age = 31,
+                ContactPhone = "333333333",
+                ProffecionalExperienceFrom = new DateTime(2005, 12, 1),
+                VisitPrice = 450,
+                Clinic = new Clinic
+                {
+                    Id = Guid.NewGuid(),
+                    Title = "GoldenHealth",
+                    Address = "Na",
+                    ContactNumber = "777",
+                    WebsiteUrl = "http://golden.org"
+                },
+                Treatments = new List<TreatmentBranch>
+                {
+                    new TreatmentBranch { Id = Guid.NewGuid(), Name = "Lore" }
+                },
+                EducationUnits = new List<DoctorEducation> { new DoctorEducation { Id = Guid.NewGuid(), Title = "KNMU", SubTitle = "Test subtitle", From = new DateTime(2000, 9, 1), To = new DateTime(2005, 6, 1) } }
+            });
             context.SaveChanges();
         }
     }

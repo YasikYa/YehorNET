@@ -17,7 +17,7 @@ namespace YehorNET.Controllers
         public DoctorsController(AppDbContext dbContext) => _dbContext = dbContext;
 
         [HttpGet]
-        public IActionResult List(string searchString, Guid[] treatments)
+        public IActionResult List(string searchString, Guid[] treatments, string sortingOrder)
         {
             var selectQuery = _dbContext.Doctors.AsQueryable();
 
@@ -33,9 +33,13 @@ namespace YehorNET.Controllers
                 Rate = d.Comments.Count == 0 ? 0 : Math.Round(d.Comments.Select(c => c.Rate).Average(), 2),
                 CommentsCount = d.Comments.Count,
                 Treats = d.Treatments.Select(tb => tb.Name).ToList()
-            }).ToList();
+            });
 
-            return View(result);
+            if (sortingOrder == "rate_desc")
+                result = result.OrderByDescending(m => m.Rate);
+
+            ViewBag.RateSort = Url.ActionLink(nameof(List), "Doctors", new { searchString, treatments, sortingOrder = string.IsNullOrEmpty(sortingOrder) ? "rate_desc" : "" });
+            return View(result.ToList());
         }
 
         [HttpGet]
@@ -70,7 +74,7 @@ namespace YehorNET.Controllers
         }
 
         [HttpPost]
-        public IActionResult Comment(Guid id, CommentViewModel model)
+        public IActionResult Comment(Guid id, string searchListUrl, CommentViewModel model)
         {
             var doctor = _dbContext.Doctors.Where(d => d.Id == id).FirstOrDefault();
             _dbContext.DoctorsComments.Add(new Comment
@@ -83,7 +87,7 @@ namespace YehorNET.Controllers
             });
             _dbContext.SaveChanges();
 
-            return RedirectToAction(nameof(Details), new { id });
+            return RedirectToAction(nameof(Details), new { id, searchListUrl });
         }
     }
 }

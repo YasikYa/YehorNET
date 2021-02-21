@@ -55,9 +55,10 @@
     @using (Html.BeginForm("Comment", "Doctors"))
     {
         @Html.Hidden("id", Model.Id)
+        @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
         @Html.TextArea("Text")
         @Html.TextBox("Rate")
-        <input type="submit" value="Comment" class="btn btn-primary"/>
+        <input type="submit" value="Comment" class="btn btn-primary" />
     }
 </div>
 <div>
