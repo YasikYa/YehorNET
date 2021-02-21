@@ -37,7 +37,7 @@ namespace YehorNET.DAL
                     new TreatmentBranch { Id = Guid.NewGuid(), Name = "Dentist" }
                 },
                 EducationUnits = new List<DoctorEducation> { new DoctorEducation { Id = Guid.NewGuid(), Title = "KNMU", SubTitle = "Test subtitle", From = new DateTime(1996, 9, 1), To = new DateTime(2000, 6, 1) } },
-                Comments = new List<Comment> { new Comment { Id = Guid.NewGuid(), Rate = 5, Text = "Nice!" } }
+                Comments = new List<Comment> { new Comment { Id = Guid.NewGuid(), Rate = 5, Text = "Nice!", Date = DateTime.Now.AddDays(-1) } }
             });
             context.SaveChanges();
         }

@@ -60,8 +60,9 @@ namespace YehorNET.Controllers
                     Comments = d.Comments.Select(c => new CommentViewModel
                     {
                         Rate = c.Rate,
-                        Text = c.Text
-                    }).ToList()
+                        Text = c.Text,
+                        Date = c.Date
+                    }).OrderBy(c => c.Date).ToList()
                 }).FirstOrDefault();
 
             return View(detailsModel);
@@ -70,12 +71,14 @@ namespace YehorNET.Controllers
         [HttpPost]
         public IActionResult Comment(Guid id, CommentViewModel model)
         {
+            var doctor = _dbContext.Doctors.Where(d => d.Id == id).FirstOrDefault();
             _dbContext.DoctorsComments.Add(new Comment
             {
                 Id = Guid.NewGuid(),
                 Text = model.Text,
                 Rate = (int)model.Rate,
-                Doctor = new Doctor { Id = id }
+                Date = DateTime.Now,
+                Doctor = doctor
             });
             _dbContext.SaveChanges();
 

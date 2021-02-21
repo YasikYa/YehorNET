@@ -1,0 +1,69 @@
+﻿@model YehorNET.Models.DoctorDetailsViewModel
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<div>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ContactPhone)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ContactPhone)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Age)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Age)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.VisitPrice)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.VisitPrice)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Rating)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Rating)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.ProffecionalExperienceFrom)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.ProffecionalExperienceFrom)
+        </dd>
+    </dl>
+</div>
+<div>
+    @using (Html.BeginForm("Comment", "Doctors"))
+    {
+        @Html.Hidden("id", Model.Id)
+        @Html.TextArea("Text")
+        @Html.TextBox("Rate")
+        <input type="submit" value="Comment" class="btn btn-primary"/>
+    }
+</div>
+<div>
+    @foreach (var comment in Model.Comments)
+    {
+        <div>
+            <span>@comment.Rate</span>
+            <span>@comment.Text</span>
+            <span>@comment.Date</span>
+        </div>
+    }
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>

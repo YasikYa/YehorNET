@@ -13,6 +13,8 @@ namespace YehorNET.DAL.Domain
 
         public string Text { get; set; }
 
+        public DateTime Date { get; set; }
+
         public Doctor Doctor { get; set; }
     }
 }

@@ -31,6 +31,8 @@ namespace YehorNET.Models
         public double Rate { get; set; }
 
         public string Text { get; set; }
+
+        public DateTime Date { get; set; }
     }
 
     public class ClinicViewModel
