@@ -59,7 +59,7 @@ namespace YehorNET.Controllers
                     Comments = d.Comments.Select(c => new CommentViewModel
                     {
                         Rate = c.Rate,
-                        Text = c.Comments
+                        Text = c.Text
                     }).ToList()
                 }).FirstOrDefault();
 
@@ -72,7 +72,7 @@ namespace YehorNET.Controllers
             _dbContext.DoctorsComments.Add(new Comment
             {
                 Id = Guid.NewGuid(),
-                Comments = model.Text,
+                Text = model.Text,
                 Rate = (int)model.Rate,
                 Doctor = new Doctor { Id = id }
             });

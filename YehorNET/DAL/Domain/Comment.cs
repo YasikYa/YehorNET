@@ -11,7 +11,7 @@ namespace YehorNET.DAL.Domain
 
         public int Rate { get; set; }
 
-        public string Comments { get; set; }
+        public string Text { get; set; }
 
         public Doctor Doctor { get; set; }
     }
