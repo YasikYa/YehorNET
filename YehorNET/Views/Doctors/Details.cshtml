@@ -55,7 +55,7 @@
         <dd class="col-sm-10">
             @foreach (var treat in Model.Treats)
             {
-                <label>@treat.Name</label>
+                <a href="@Url.Action("List", "Doctors", new { treatments = treat.Id })"><label>@treat.Name</label></a>
             }
         </dd>
     </dl>
