@@ -135,5 +135,13 @@ namespace YehorNET.Controllers
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(List));
         }
+
+        public IActionResult Delete(Guid id)
+        {
+            var doctor = _dbContext.Doctors.Find(id);
+            _dbContext.Doctors.Remove(doctor);
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(List));
+        }
     }
 }

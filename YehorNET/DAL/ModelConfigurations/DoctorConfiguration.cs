@@ -21,7 +21,8 @@ namespace YehorNET.DAL.ModelConfigurations
                    .OnDelete(DeleteBehavior.ClientSetNull);
 
             builder.HasMany(d => d.EducationUnits)
-                   .WithOne(eu => eu.Doctor);
+                   .WithOne(eu => eu.Doctor)
+                   .OnDelete(DeleteBehavior.Cascade);
 
             builder.HasMany(d => d.Treatments)
                    .WithMany(t => t.Doctors);
