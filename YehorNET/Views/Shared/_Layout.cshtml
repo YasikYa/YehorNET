@@ -10,6 +10,8 @@
 </head>
 <body>
     <div>
+        @Html.ActionLink("Search Doctor", "Index", "Home")
+        @Html.ActionLink("All Doctors", "List", "Doctors")
         @if (User.Identity.IsAuthenticated)
         {
             @Html.ActionLink("Logout", "Logout", "Account");
