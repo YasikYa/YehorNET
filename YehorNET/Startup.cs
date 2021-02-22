@@ -28,6 +28,14 @@ namespace YehorNET
             {
                 options.UseSqlServer(Configuration.GetConnectionString("AppDb"));
             });
+
+            services.AddAuthentication("CoockieDefault")
+                .AddCookie("CoockieDefault", config =>
+                {
+                });
+
+            services.AddAuthorization();
+
             services.AddControllersWithViews();
         }
 
@@ -45,6 +53,8 @@ namespace YehorNET
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

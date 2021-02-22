@@ -62,7 +62,12 @@
 </div>
 <div>
     <h2>Doctor Education</h2>
-    @Html.ActionLink("Add new", "AddEducation", "Doctors", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })
+    @if (User.IsInRole("Admin"))
+    {
+        <div>
+            <input type="button" value="Create new Education Unit" class="btn btn-primary" onclick="location.href = '@Url.Action("AddEducation", "Doctors", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })'" />
+        </div>
+    }
     @foreach (var education in Model.Educations)
     {
         <dl>
@@ -91,30 +96,42 @@
                 <label>@education.To.ToShortDateString()</label>
             </dd>
         </dl>
-        @Html.ActionLink("Remove", "RemoveEducation", "Doctors", new { educationId = education.Id, callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })
-    }
-</div>
-<div>
-    @using (Html.BeginForm("Comment", "Doctors"))
-    {
-        @Html.Hidden("id", Model.Id)
-        @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
-        <div class="input-group mb-3">
-            <input type="text" class="form-control" placeholder="Leave comment" name="Text">
-        </div>
-        <fieldset class="rating">
-            <div class="rating__group">
-                <input class="rating__star" type="radio" name="Rate" value="1" aria-label="Ужасно" checked>
-                <input class="rating__star" type="radio" name="Rate" value="2" aria-label="Сносно">
-                <input class="rating__star" type="radio" name="Rate" value="3" aria-label="Нормально">
-                <input class="rating__star" type="radio" name="Rate" value="4" aria-label="Хорошо">
-                <input class="rating__star" type="radio" name="Rate" value="5" aria-label="Отлично">
-                <div class="rating__focus"></div>
+        @if (User.IsInRole("Admin"))
+        {
+            <div>
+                <input type="button" value="Remove this Education Unit" class="btn btn-primary" onclick="location.href = '@Url.Action("RemoveEducation", "Doctors", new { educationId = education.Id, callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })'" />
             </div>
-        </fieldset>
-        <input type="submit" value="Comment" class="btn btn-primary" />
+        }
     }
 </div>
+@if (User.Identity.IsAuthenticated)
+{
+    <div>
+        @using (Html.BeginForm("Comment", "Doctors"))
+        {
+            @Html.Hidden("id", Model.Id)
+            @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
+            <div class="input-group mb-3">
+                <input type="text" class="form-control" placeholder="Leave comment" name="Text">
+            </div>
+            <fieldset class="rating">
+                <div class="rating__group">
+                    <input class="rating__star" type="radio" name="Rate" value="1" aria-label="Ужасно" checked>
+                    <input class="rating__star" type="radio" name="Rate" value="2" aria-label="Сносно">
+                    <input class="rating__star" type="radio" name="Rate" value="3" aria-label="Нормально">
+                    <input class="rating__star" type="radio" name="Rate" value="4" aria-label="Хорошо">
+                    <input class="rating__star" type="radio" name="Rate" value="5" aria-label="Отлично">
+                    <div class="rating__focus"></div>
+                </div>
+            </fieldset>
+            <input type="submit" value="Comment" class="btn btn-primary" />
+        }
+    </div>
+}
+else
+{
+    <h2>Login to Leave comments</h2>
+}
 <div>
     @foreach (var comment in Model.Comments)
     {
@@ -126,5 +143,5 @@
     }
 </div>
 <div>
-    <a href="@ViewBag.ReturnUrl" >Back to search results</a>
+    <a href="@ViewBag.ReturnUrl">Back to search results</a>
 </div>

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,6 +17,7 @@ namespace YehorNET.Controllers
         public ClinicController(AppDbContext dbContext) => _dbContext = dbContext;
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(string callbackUrl)
         {
             ViewBag.ReturnUrl = callbackUrl;
@@ -23,6 +25,7 @@ namespace YehorNET.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(CreateClinicViewModel model, string callbackUrl)
         {
             _dbContext.Clinics.Add(new Clinic

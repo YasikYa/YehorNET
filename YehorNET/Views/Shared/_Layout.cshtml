@@ -9,6 +9,18 @@
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
 <body>
+    <div>
+        @if (User.Identity.IsAuthenticated)
+        {
+            @Html.ActionLink("Logout", "Logout", "Account");
+        } else
+        {
+            @Html.ActionLink("SignUp", "SignUp", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString });
+            <span>|</span>
+            @Html.ActionLink("Login", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString });
+        }
+
+    </div>
     <div class="container body-content">
         @RenderBody()
     </div>

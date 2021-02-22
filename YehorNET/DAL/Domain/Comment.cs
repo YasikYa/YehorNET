@@ -16,5 +16,7 @@ namespace YehorNET.DAL.Domain
         public DateTime Date { get; set; }
 
         public Doctor Doctor { get; set; }
+
+        public User User { get; set; }
     }
 }

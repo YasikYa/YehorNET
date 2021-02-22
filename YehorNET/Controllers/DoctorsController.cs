@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Newtonsoft.Json;
 using System;
@@ -88,6 +89,7 @@ namespace YehorNET.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public IActionResult Comment(Guid id, string searchListUrl, CommentViewModel model)
         {
             var doctor = _dbContext.Doctors.Where(d => d.Id == id).FirstOrDefault();
@@ -106,6 +108,7 @@ namespace YehorNET.Controllers
 
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             var existingClinics = _dbContext.Clinics.Select(c => new ClinicLookupViewModel { Id = c.Id, Name = c.Title }).ToList();
@@ -116,6 +119,7 @@ namespace YehorNET.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create(DoctorCreateModel model)
         {
             var clinic = _dbContext.Clinics.Where(c => c.Id == model.ClinicId).First();
@@ -137,6 +141,7 @@ namespace YehorNET.Controllers
             return RedirectToAction(nameof(List));
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete(Guid id)
         {
             var doctor = _dbContext.Doctors.Find(id);
@@ -146,6 +151,7 @@ namespace YehorNET.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddEducation(Guid id, string callbackUrl)
         {
             ViewBag.ReturnUrl = callbackUrl;
@@ -153,6 +159,8 @@ namespace YehorNET.Controllers
             return View();
         }
 
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
         public IActionResult AddEducation(EducationViewModel model, Guid id, string callbackUrl)
         {
             var doctor = _dbContext.Doctors.Find(id);
@@ -167,6 +175,7 @@ namespace YehorNET.Controllers
             return Redirect(callbackUrl);
         }
 
+        [Authorize(Roles = "Admin")]
         public IActionResult RemoveEducation(Guid educationId, string callbackUrl)
         {
             var educationUnit = _dbContext.DoctorsEducations.Find(educationId);

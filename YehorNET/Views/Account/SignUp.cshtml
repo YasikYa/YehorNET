@@ -1,0 +1,19 @@
+﻿
+@{
+    ViewData["Title"] = "SignUp";
+}
+
+<h1>SignUp</h1>
+
+@using (Html.BeginForm("SignUp", "Account", FormMethod.Post))
+{
+    <div class="form-group">
+        <input type="text" class="form-control" aria-describedby="emailHelp" placeholder="Username" name="name">
+        <small class="form-text text-muted">Name must be unique</small>
+    </div>
+    <div class="form-group">
+        <input type="password" class="form-control" id="exampleInputPassword1" placeholder="Password" name="password">
+    </div>
+    <button type="submit" class="btn btn-primary">Submit</button>
+}
+

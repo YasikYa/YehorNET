@@ -11,10 +11,15 @@ namespace YehorNET.DAL
     {
         public static void SeedData(AppDbContext context)
         {
-            context.Database.EnsureCreated();
-
             if (context.Doctors.Any())
                 return;
+
+            context.Users.Add(new User
+            {
+                Name = "admin",
+                Password = "admin",
+                Role = "Admin"
+            });
 
             context.Doctors.Add(new Doctor
             {
@@ -36,8 +41,7 @@ namespace YehorNET.DAL
                 {
                     new TreatmentBranch { Id = Guid.NewGuid(), Name = "Dentist" }
                 },
-                EducationUnits = new List<DoctorEducation> { new DoctorEducation { Id = Guid.NewGuid(), Title = "KNMU", SubTitle = "Test subtitle", From = new DateTime(1996, 9, 1), To = new DateTime(2000, 6, 1) } },
-                Comments = new List<Comment> { new Comment { Id = Guid.NewGuid(), Rate = 5, Text = "Nice!", Date = DateTime.Now.AddDays(-1) } }
+                EducationUnits = new List<DoctorEducation> { new DoctorEducation { Id = Guid.NewGuid(), Title = "KNMU", SubTitle = "Test subtitle", From = new DateTime(1996, 9, 1), To = new DateTime(2000, 6, 1) } }
             });
             context.Doctors.Add(new Doctor
             {

@@ -5,7 +5,12 @@
 }
 
 <h1>List</h1>
-
+@if (User.IsInRole("Admin"))
+{
+    <div>
+        <input type="button" value="Create Doctor" class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Doctors")'" />
+    </div>
+}
 <table class="table">
     <thead>
         <tr>
@@ -22,27 +27,33 @@
         </tr>
     </thead>
     <tbody>
-@foreach (var item in Model) {
-        <tr>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Rate)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.CommentsCount)
-            </td>
-            <td>
-                @foreach (var treat in item.Treats)
-                {
-                    <span>@treat</span>
-                }
-            </td>
-            <td>
-                @Html.ActionLink("Details", "Details", new { id = item.Id, searchListUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })
-            </td>
-        </tr>
-}
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Rate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CommentsCount)
+                </td>
+                <td>
+                    @foreach (var treat in item.Treats)
+                    {
+                        <span>@treat</span>
+                    }
+                </td>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = item.Id, searchListUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })
+
+                    @if (User.IsInRole("Admin"))
+                    {
+                        @Html.ActionLink("Delete", "Delete", "Doctors", new { id = item.Id })
+                    }
+                </td>
+            </tr>
+        }
     </tbody>
 </table>

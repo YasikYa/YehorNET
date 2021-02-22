@@ -1,5 +1,4 @@
-﻿@using Newtonsoft.Json;
-@model YehorNET.Models.DoctorCreateModel
+﻿@model YehorNET.Models.DoctorCreateModel
 
 @{
     ViewData["Title"] = "Create";
@@ -44,6 +43,9 @@
                     <input id="datalist-input" class="datalist-input" type="text" placeholder="Clinic" autocomplete="off">
                     <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
                     <ul id="datalist-ul" class="datalist-ul"></ul>
+                </div>
+                <div>
+                    <input type="button" value="Create New" class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Clinic", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })'" />
                 </div>
             </div>
             <div class="form-group">
