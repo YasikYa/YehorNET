@@ -69,6 +69,7 @@ namespace YehorNET.Controllers
                     },
                     Educations = d.EducationUnits.Select(e => new EducationViewModel
                     {
+                        Id = e.Id,
                         Title = e.Title,
                         SubTitle = e.SubTitle,
                         From = e.From,
@@ -142,6 +143,36 @@ namespace YehorNET.Controllers
             _dbContext.Doctors.Remove(doctor);
             _dbContext.SaveChanges();
             return RedirectToAction(nameof(List));
+        }
+
+        [HttpGet]
+        public IActionResult AddEducation(Guid id, string callbackUrl)
+        {
+            ViewBag.ReturnUrl = callbackUrl;
+            ViewBag.DoctorId = id;
+            return View();
+        }
+
+        public IActionResult AddEducation(EducationViewModel model, Guid id, string callbackUrl)
+        {
+            var doctor = _dbContext.Doctors.Find(id);
+            doctor.EducationUnits.Add(new DoctorEducation
+            {
+                Title = model.Title,
+                SubTitle = model.SubTitle,
+                From = model.From,
+                To = model.To
+            });
+            _dbContext.SaveChanges();
+            return Redirect(callbackUrl);
+        }
+
+        public IActionResult RemoveEducation(Guid educationId, string callbackUrl)
+        {
+            var educationUnit = _dbContext.DoctorsEducations.Find(educationId);
+            _dbContext.DoctorsEducations.Remove(educationUnit);
+            _dbContext.SaveChanges();
+            return Redirect(callbackUrl);
         }
     }
 }

@@ -62,6 +62,7 @@
 </div>
 <div>
     <h2>Doctor Education</h2>
+    @Html.ActionLink("Add new", "AddEducation", "Doctors", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })
     @foreach (var education in Model.Educations)
     {
         <dl>
@@ -90,6 +91,7 @@
                 <label>@education.To.ToShortDateString()</label>
             </dd>
         </dl>
+        @Html.ActionLink("Remove", "RemoveEducation", "Doctors", new { educationId = education.Id, callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })
     }
 </div>
 <div>
