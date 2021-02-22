@@ -56,12 +56,24 @@ namespace YehorNET.Controllers
                     Rating = d.Comments.Count == 0 ? 0 : Math.Round(d.Comments.Select(c => c.Rate).Average(), 2),
                     ProffecionalExperienceFrom = d.ProffecionalExperienceFrom,
                     VisitPrice = d.VisitPrice,
+                    Treats = d.Treatments.Select(t => new TreatLookupViewModel
+                    {
+                        Id = t.Id,
+                        Name = t.Name
+                    }).ToList(),
                     Clinic = new ClinicViewModel
                     {
                         Id = d.Clinic.Id,
                         Name = d.Clinic.Title,
                         SiteUrl = d.Clinic.WebsiteUrl
                     },
+                    Educations = d.EducationUnits.Select(e => new EducationViewModel
+                    {
+                        Title = e.Title,
+                        SubTitle = e.SubTitle,
+                        From = e.From,
+                        To = e.To
+                    }).ToList(),
                     Comments = d.Comments.Select(c => new CommentViewModel
                     {
                         Rate = c.Rate,

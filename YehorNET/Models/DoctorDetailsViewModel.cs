@@ -21,9 +21,13 @@ namespace YehorNET.Models
 
         public DateTime ProffecionalExperienceFrom { get; set; }
 
+        public ICollection<TreatLookupViewModel> Treats { get; set; }
+
         public ClinicViewModel Clinic { get; set; }
 
         public ICollection<CommentViewModel> Comments { get; set; }
+
+        public ICollection<EducationViewModel> Educations { get; set; }
     }
 
     public class CommentViewModel
@@ -42,5 +46,16 @@ namespace YehorNET.Models
         public string Name { get; set; }
 
         public string SiteUrl { get; set; }
+    }
+
+    public class EducationViewModel
+    {
+        public string Title { get; set; }
+
+        public string SubTitle { get; set; }
+
+        public DateTime From { get; set; }
+
+        public DateTime To { get; set; }
     }
 }

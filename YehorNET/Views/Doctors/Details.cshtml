@@ -49,14 +49,57 @@
         <dd class="col-sm-10">
             <a href="@Model.Clinic.SiteUrl"><label>@Model.Clinic.Name</label></a>
         </dd>
+        <dt class="col-sm-2">
+            <label>Treats</label>
+        </dt>
+        <dd class="col-sm-10">
+            @foreach (var treat in Model.Treats)
+            {
+                <label>@treat.Name</label>
+            }
+        </dd>
     </dl>
+</div>
+<div>
+    <h2>Doctor Education</h2>
+    @foreach (var education in Model.Educations)
+    {
+        <dl>
+            <dt class="col-sm-2">
+                <label>Title</label>
+            </dt>
+            <dd class="col-sm-10">
+                <label>@education.Title</label>
+            </dd>
+            <dt class="col-sm-2">
+                <label>SubTitle</label>
+            </dt>
+            <dd class="col-sm-10">
+                <label>@education.SubTitle</label>
+            </dd>
+            <dt class="col-sm-2">
+                <label>From</label>
+            </dt>
+            <dd class="col-sm-10">
+                <label>@education.From.ToShortDateString()</label>
+            </dd>
+            <dt class="col-sm-2">
+                <label>To</label>
+            </dt>
+            <dd class="col-sm-10">
+                <label>@education.To.ToShortDateString()</label>
+            </dd>
+        </dl>
+    }
 </div>
 <div>
     @using (Html.BeginForm("Comment", "Doctors"))
     {
         @Html.Hidden("id", Model.Id)
         @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
-        @Html.TextArea("Text")
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Leave comment" name="Text">
+        </div>
         <fieldset class="rating">
             <div class="rating__group">
                 <input class="rating__star" type="radio" name="Rate" value="1" aria-label="Ужасно" checked>
