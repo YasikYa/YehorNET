@@ -7,6 +7,11 @@ namespace YehorNET.DAL.Domain
 {
     public class Clinic
     {
+        public Clinic()
+        {
+            Doctors = new List<Doctor>();
+        }
+
         public Guid Id { get; set; }
 
         public string Title { get; set; }
