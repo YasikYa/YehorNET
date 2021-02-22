@@ -57,7 +57,16 @@
         @Html.Hidden("id", Model.Id)
         @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
         @Html.TextArea("Text")
-        @Html.TextBox("Rate")
+        <fieldset class="rating">
+            <div class="rating__group">
+                <input class="rating__star" type="radio" name="Rate" value="1" aria-label="Ужасно" checked>
+                <input class="rating__star" type="radio" name="Rate" value="2" aria-label="Сносно">
+                <input class="rating__star" type="radio" name="Rate" value="3" aria-label="Нормально">
+                <input class="rating__star" type="radio" name="Rate" value="4" aria-label="Хорошо">
+                <input class="rating__star" type="radio" name="Rate" value="5" aria-label="Отлично">
+                <div class="rating__focus"></div>
+            </div>
+        </fieldset>
         <input type="submit" value="Comment" class="btn btn-primary" />
     }
 </div>
