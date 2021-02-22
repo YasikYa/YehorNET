@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -88,6 +89,39 @@ namespace YehorNET.Controllers
             _dbContext.SaveChanges();
 
             return RedirectToAction(nameof(Details), new { id, searchListUrl });
+        }
+
+
+        [HttpGet]
+        public IActionResult Create()
+        {
+            var existingClinics = _dbContext.Clinics.Select(c => new ClinicLookupViewModel { Id = c.Id, Name = c.Title }).ToList();
+            var existingTreats = _dbContext.TreatmentBranches.Select(t => new TreatLookupViewModel { Id = t.Id, Name = t.Name }).ToList();
+            ViewBag.Clinics = existingClinics;
+            ViewBag.Treats = existingTreats;
+            return View();
+        }
+
+        [HttpPost]
+        public IActionResult Create(DoctorCreateModel model)
+        {
+            var clinic = _dbContext.Clinics.Where(c => c.Id == model.ClinicId).First();
+            var addDoctor = new Doctor
+            {
+                Age = model.Age,
+                Name = model.Name,
+                ContactPhone = model.ContactPhone,
+                VisitPrice = model.VisitPrice,
+                ProffecionalExperienceFrom = model.ProffecionalExperienceFrom,
+                Clinic = clinic
+            };
+            _dbContext.Doctors.Add(addDoctor);
+            foreach (var treatId in model.Treats)
+            {
+                _dbContext.TreatmentBranches.Find(treatId).Doctors.Add(addDoctor);
+            }
+            _dbContext.SaveChanges();
+            return RedirectToAction(nameof(List));
         }
     }
 }

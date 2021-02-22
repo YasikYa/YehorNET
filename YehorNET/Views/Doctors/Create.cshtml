@@ -1,0 +1,94 @@
+﻿@using Newtonsoft.Json;
+@model YehorNET.Models.DoctorCreateModel
+
+@{
+    ViewData["Title"] = "Create";
+}
+
+<h1>Create</h1>
+
+<h4>DoctorCreateModel</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+                <span asp-validation-for="Name" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ContactPhone" class="control-label"></label>
+                <input asp-for="ContactPhone" class="form-control" />
+                <span asp-validation-for="ContactPhone" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Age" class="control-label"></label>
+                <input asp-for="Age" class="form-control" />
+                <span asp-validation-for="Age" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="VisitPrice" class="control-label"></label>
+                <input asp-for="VisitPrice" class="form-control" />
+                <span asp-validation-for="VisitPrice" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="ProffecionalExperienceFrom" class="control-label"></label>
+                <input asp-for="ProffecionalExperienceFrom" class="form-control" />
+                <span asp-validation-for="ProffecionalExperienceFrom" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <div id="datalist" class="datalist">
+                    <input id="datalist-value-input" type="hidden" asp-for="ClinicId" />
+                    <input id="datalist-input" class="datalist-input" type="text" placeholder="Clinic" autocomplete="off">
+                    <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
+                    <ul id="datalist-ul" class="datalist-ul"></ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <div id="treat-select-inputs"></div>
+                <div id="multi-datalist" class="datalist">
+                    <input id="multi-datalist-input" class="datalist-input" type="text" placeholder="Treat" autocomplete="off">
+                    <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
+                    <ul id="multi-datalist-ul" class="datalist-ul"></ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+    <script src="~/js/searchlist.js"></script>
+    <script src="~/js/multisearchlist.js"></script>
+    <script>
+        const clinics = @Html.Raw(Json.Serialize(ViewBag.Clinics));
+        const treats = @Html.Raw(Json.Serialize(ViewBag.Treats));
+        const datalist = new DataList(
+            "datalist",
+            "datalist-input",
+            "datalist-value-input",
+            "datalist-ul",
+            clinics);
+        datalist.create();
+        datalist.addListeners(datalist);
+
+        const multiDatalist = new MultiDataList(
+            "multi-datalist",
+            "multi-datalist-input",
+            "treat-select-inputs",
+            "multi-datalist-ul",
+            treats);
+        multiDatalist.create();
+        multiDatalist.addListeners(multiDatalist);
+
+    </script>
+}
