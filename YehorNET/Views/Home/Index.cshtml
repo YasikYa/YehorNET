@@ -1,15 +1,27 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Home";
 }
 
-<div class="text-center">
-    @using (Html.BeginForm("List", "Doctors", FormMethod.Get))
+<div class="home-page">
+    @using (Html.BeginForm("List", "Doctors", FormMethod.Get, new { @class = "home-page__form" }))
     {
-        <div class="form-group">
-            <input type="text" class="form-control" aria-describedby="search" placeholder="Search by name" name="searchString">
-            <small class="form-text text-muted">Leave empty to search for all</small>
+        <p class="home-page__desc">
+            какое-то описание
+            я хуй знает чо написать
+        </p>
+
+        <div class="row justify-content-between">
+            <div style="width: 50%">
+                <label for="searchString" class="form-label">Search by names</label>
+                <input type="text" class="form-control" aria-describedby="search" placeholder="Enter name" name="searchString" id="searchString">
+                <small>Leave empty to search for all</small>
+            </div>
+            <div style="width: 50%">
+                <label for="filterString" class="form-label">Filter by specialty</label>
+                @Html.DropDownList("treatments", (IEnumerable<SelectListItem>)ViewBag.TreatFilter, new { @class = "form-select", @id = "filterString" })
+            </div>
         </div>
-        @Html.DropDownList("treatments", (IEnumerable<SelectListItem>)ViewBag.TreatFilter, new { @class = "custom-select" })
-        <input type="submit" value="Search" class="btn btn-primary">
+
+        <button class="btn btn-primary">Search doctors</button>
     }
 </div>

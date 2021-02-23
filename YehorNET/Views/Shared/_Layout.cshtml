@@ -3,27 +3,52 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - WebApplication1</title>
-
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
-    <link rel="stylesheet" href="~/css/site.css" />
+    <title>@ViewData["Title"]</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-BmbxuPwQa2lc/FVzBcNJ7UAyJxM6wuqIj61tLrc4wSX0szH/Ev+nYRRuWlolflfl" crossorigin="anonymous">
+    <link rel="stylesheet" href="~/css/main.css" />
 </head>
 <body>
-    <div>
-        @if (User.Identity.IsAuthenticated)
-        {
-            @Html.ActionLink("Logout", "Logout", "Account");
-        } else
-        {
-            @Html.ActionLink("SignUp", "SignUp", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString });
-            <span>|</span>
-            @Html.ActionLink("Login", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString });
-        }
 
-    </div>
-    <div class="container body-content">
+    <header class="header">
+        <div class="container">
+             <nav class="navigation">
+                 <ul class="navigation-list">
+                     <li class="navigation-list__item" style="flex-grow: 1;">
+                         <a href="/">Home</a>
+                     </li>
+                     @if (User.Identity.IsAuthenticated)
+                     {
+                         <li class="navigation-list__item">
+                             @Html.ActionLink("Log out", "Logout", "Account")
+                         </li>
+                     }
+                     else
+                     {
+                         <li class="navigation-list__item">
+                             @Html.ActionLink("Sign up", "SignUp", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })
+                         </li>
+                         <li class="navigation-list__item">
+                             @Html.ActionLink("Login", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })
+                         </li>
+                     }
+                 </ul>
+             </nav>
+        </div>
+    </header>
+
+    <main class="main container">
         @RenderBody()
-    </div>
+    </main>
+
+    <footer class="footer">
+        <div class="container">
+            &copy; 2021. All rights reserved.
+        </div>
+    </footer>
+
+
     @RenderSection("Scripts", required: false)
 </body>
 </html>
