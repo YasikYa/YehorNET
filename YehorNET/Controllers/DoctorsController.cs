@@ -5,6 +5,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using YehorNET.DAL;
 using YehorNET.DAL.Domain;
@@ -80,7 +81,8 @@ namespace YehorNET.Controllers
                     {
                         Rate = c.Rate,
                         Text = c.Text,
-                        Date = c.Date
+                        Date = c.Date,
+                        Author = c.User.Name
                     }).OrderBy(c => c.Date).ToList()
                 }).FirstOrDefault();
 
@@ -92,14 +94,17 @@ namespace YehorNET.Controllers
         [Authorize]
         public IActionResult Comment(Guid id, string searchListUrl, CommentViewModel model)
         {
+            var username = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Name).Value;
             var doctor = _dbContext.Doctors.Where(d => d.Id == id).FirstOrDefault();
+            var user = _dbContext.Users.Where(u => u.Name == username).FirstOrDefault();
             _dbContext.DoctorsComments.Add(new Comment
             {
                 Id = Guid.NewGuid(),
                 Text = model.Text,
                 Rate = (int)model.Rate,
                 Date = DateTime.Now,
-                Doctor = doctor
+                Doctor = doctor,
+                User = user
             });
             _dbContext.SaveChanges();
 
