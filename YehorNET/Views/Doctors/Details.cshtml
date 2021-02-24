@@ -4,145 +4,171 @@
     ViewData["Title"] = "Details";
 }
 
-<div>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Name)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Name)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.ContactPhone)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.ContactPhone)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Age)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Age)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.VisitPrice)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.VisitPrice)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Rating)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Rating)
-        </dd>
-        <dt class="col-sm-2">
-            <label>Working Since</label>
-        </dt>
-        <dd class="col-sm-10">
-            <label>@Model.ProffecionalExperienceFrom.ToShortDateString()</label>
-        </dd>
-        <dt class="col-sm-2">
-            <label>Working Clinic</label>
-        </dt>
-        <dd class="col-sm-10">
-            <a href="@Model.Clinic.SiteUrl"><label>@Model.Clinic.Name</label></a>
-        </dd>
-        <dt class="col-sm-2">
-            <label>Treats</label>
-        </dt>
-        <dd class="col-sm-10">
-            @foreach (var treat in Model.Treats)
-            {
-                <a href="@Url.Action("List", "Doctors", new { treatments = treat.Id })"><label>@treat.Name</label></a>
-            }
-        </dd>
-    </dl>
-</div>
-<div>
-    <h2>Doctor Education</h2>
-    @if (User.IsInRole("Admin"))
-    {
-        <div>
-            <input type="button" value="Create new Education Unit" class="btn btn-primary" onclick="location.href = '@Url.Action("AddEducation", "Doctors", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })'" />
-        </div>
-    }
-    @foreach (var education in Model.Educations)
-    {
-        <dl>
+<div class="details-page">
+
+    <header style="display: flex; justify-content: space-between; align-items: center">
+        <h1>Details</h1>
+
+        <a href="@ViewBag.ReturnUrl">Back to search results</a>
+    </header>
+
+    <div class="details-page__info card mt-4">
+        <dl class="row">
             <dt class="col-sm-2">
-                <label>Title</label>
+                @Html.DisplayNameFor(model => model.Name)
             </dt>
             <dd class="col-sm-10">
-                <label>@education.Title</label>
+                @Html.DisplayFor(model => model.Name)
             </dd>
             <dt class="col-sm-2">
-                <label>SubTitle</label>
+                @Html.DisplayNameFor(model => model.ContactPhone)
             </dt>
             <dd class="col-sm-10">
-                <label>@education.SubTitle</label>
+                @Html.DisplayFor(model => model.ContactPhone)
             </dd>
             <dt class="col-sm-2">
-                <label>From</label>
+                @Html.DisplayNameFor(model => model.Age)
             </dt>
             <dd class="col-sm-10">
-                <label>@education.From.ToShortDateString()</label>
+                @Html.DisplayFor(model => model.Age)
             </dd>
             <dt class="col-sm-2">
-                <label>To</label>
+                @Html.DisplayNameFor(model => model.VisitPrice)
             </dt>
             <dd class="col-sm-10">
-                <label>@education.To.ToShortDateString()</label>
+                @Html.DisplayFor(model => model.VisitPrice)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Rating)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Rating)
+            </dd>
+            <dt class="col-sm-2">
+                <label>Working Since</label>
+            </dt>
+            <dd class="col-sm-10">
+                <label>@Model.ProffecionalExperienceFrom.ToShortDateString()</label>
+            </dd>
+            <dt class="col-sm-2">
+                <label>Working Clinic</label>
+            </dt>
+            <dd class="col-sm-10">
+                <a href="@Model.Clinic.SiteUrl"><label>@Model.Clinic.Name</label></a>
+            </dd>
+            <dt class="col-sm-2">
+                <label>Treats</label>
+            </dt>
+            <dd class="col-sm-10">
+                @foreach (var treat in Model.Treats)
+                {
+                    <a href="@Url.Action("List", "Doctors", new { treatments = treat.Id })"><label>@treat.Name</label></a>
+                }
             </dd>
         </dl>
-        @if (User.IsInRole("Admin"))
+    </div>
+
+
+    <div class="details-page__education card mt-4">
+        <header>
+            <h2>Doctor education</h2>
+
+            @if (User.IsInRole("Admin"))
+            {
+                <button class="btn btn-primary" onclick="location.href = '@Url.Action("AddEducation", "Doctors", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })'">Add education</button>
+            }
+        </header>
+
+        @foreach (var education in Model.Educations)
         {
-            <div>
-                <input type="button" value="Remove this Education Unit" class="btn btn-primary" onclick="location.href = '@Url.Action("RemoveEducation", "Doctors", new { educationId = education.Id, callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })'" />
+            <div class="card mt-4" style="padding: 20px;">
+                <dl>
+                    <dt class="col-sm-2">
+                        <label>Title</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        <label>@education.Title</label>
+                    </dd>
+                    <dt class="col-sm-2">
+                        <label>SubTitle</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        <label>@education.SubTitle</label>
+                    </dd>
+                    <dt class="col-sm-2">
+                        <label>From</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        <label>@education.From.ToShortDateString()</label>
+                    </dd>
+                    <dt class="col-sm-2">
+                        <label>To</label>
+                    </dt>
+                    <dd class="col-sm-10">
+                        <label>@education.To.ToShortDateString()</label>
+                    </dd>
+                </dl>
+                @if (User.IsInRole("Admin"))
+                {
+                   <button class="btn btn-primary mt-2" onclick="location.href = '@Url.Action("RemoveEducation", "Doctors", new { educationId = education.Id, callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString, id = Model.Id })'">Remove education</button>
+                }
             </div>
-        }
-    }
-</div>
-@if (User.Identity.IsAuthenticated)
-{
-    <div>
-        @using (Html.BeginForm("Comment", "Doctors"))
-        {
-            @Html.Hidden("id", Model.Id)
-            @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
-            <div class="input-group mb-3">
-                <input type="text" class="form-control" placeholder="Leave comment" name="Text">
-            </div>
-            <fieldset class="rating">
-                <div class="rating__group">
-                    <input class="rating__star" type="radio" name="Rate" value="1" aria-label="Ужасно" checked>
-                    <input class="rating__star" type="radio" name="Rate" value="2" aria-label="Сносно">
-                    <input class="rating__star" type="radio" name="Rate" value="3" aria-label="Нормально">
-                    <input class="rating__star" type="radio" name="Rate" value="4" aria-label="Хорошо">
-                    <input class="rating__star" type="radio" name="Rate" value="5" aria-label="Отлично">
-                    <div class="rating__focus"></div>
-                </div>
-            </fieldset>
-            <input type="submit" value="Comment" class="btn btn-primary" />
         }
     </div>
-}
-else
-{
-    <h2>Login to Leave comments</h2>
-}
-<div>
-    @foreach (var comment in Model.Comments)
-    {
-        <div>
-            <span>@comment.Rate</span>
-            <span>@comment.Text</span>
-            <span>@comment.Date.ToShortDateString()</span>
-            <span>@comment.Author</span>
-        </div>
-    }
-</div>
-<div>
-    <a href="@ViewBag.ReturnUrl">Back to search results</a>
+
+    <div class="details-page__form-comment mt-4">
+        @if (User.Identity.IsAuthenticated)
+        {
+            @using (Html.BeginForm("Comment", "Doctors"))
+            {
+                @Html.Hidden("id", Model.Id)
+                @Html.Hidden("searchListUrl", (string)ViewBag.ReturnUrl)
+
+                <div class="form-floating mb-4">
+                    <textarea class="form-control" placeholder="Leave a comment here" id="floatingTextarea2" style="height: 100px" name="Text" required></textarea>
+                    <label for="floatingTextarea2">Comments</label>
+                </div>
+
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <fieldset class="rating">
+                        <div class="rating__group">
+                            <input class="rating__star" type="radio" name="Rate" value="1" aria-label="Ужасно" checked>
+                            <input class="rating__star" type="radio" name="Rate" value="2" aria-label="Сносно">
+                            <input class="rating__star" type="radio" name="Rate" value="3" aria-label="Нормально">
+                            <input class="rating__star" type="radio" name="Rate" value="4" aria-label="Хорошо">
+                            <input class="rating__star" type="radio" name="Rate" value="5" aria-label="Отлично">
+                            <div class="rating__focus"></div>
+                        </div>
+                    </fieldset>
+
+                    <button class="btn btn-primary">Send comment</button>
+                </div>
+
+
+            }
+        }
+        else
+        {
+            @Html.ActionLink("Log in to leave comments", "Login", "Account", new { ReturnUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })
+        }
+    </div>
+
+    <div class="details-page__comments mt-4">
+        @foreach (var comment in Model.Comments)
+        {
+            <div class="card mb-2">
+                <div class="card-header" style="display: flex; justify-content: space-between; align-items: center;">
+                    <div>@comment.Rate / 5</div>
+                    <div>@comment.Date.ToShortDateString()</div>
+                </div>
+                <div class="card-body">
+                    <blockquote class="blockquote mb-0">
+                        <p>@comment.Text</p>
+                        <footer class="blockquote-footer">@comment.Author</footer>
+                    </blockquote>
+                </div>
+            </div>
+        }
+    </div>
+
 </div>

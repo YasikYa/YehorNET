@@ -4,67 +4,65 @@
     ViewData["Title"] = "Create";
 }
 
-<h1>Create</h1>
 
-<h4>DoctorCreateModel</h4>
-<hr />
-<div class="row">
-    <div class="col-md-4">
-        <form asp-action="Create">
-            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-            <div class="form-group">
-                <label asp-for="Name" class="control-label"></label>
-                <input asp-for="Name" class="form-control" />
-                <span asp-validation-for="Name" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ContactPhone" class="control-label"></label>
-                <input asp-for="ContactPhone" class="form-control" />
-                <span asp-validation-for="ContactPhone" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="Age" class="control-label"></label>
-                <input asp-for="Age" class="form-control" />
-                <span asp-validation-for="Age" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="VisitPrice" class="control-label"></label>
-                <input asp-for="VisitPrice" class="form-control" />
-                <span asp-validation-for="VisitPrice" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <label asp-for="ProffecionalExperienceFrom" class="control-label"></label>
-                <input asp-for="ProffecionalExperienceFrom" class="form-control" />
-                <span asp-validation-for="ProffecionalExperienceFrom" class="text-danger"></span>
-            </div>
-            <div class="form-group">
-                <div id="datalist" class="datalist">
-                    <input id="datalist-value-input" type="hidden" asp-for="ClinicId" />
-                    <input id="datalist-input" class="datalist-input" type="text" placeholder="Clinic" autocomplete="off">
-                    <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
-                    <ul id="datalist-ul" class="datalist-ul"></ul>
-                </div>
-                <div>
-                    <input type="button" value="Create New" class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Clinic", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })'" />
-                </div>
-            </div>
-            <div class="form-group">
-                <div id="treat-select-inputs"></div>
-                <div id="multi-datalist" class="datalist">
-                    <input id="multi-datalist-input" class="datalist-input" type="text" placeholder="Treat" autocomplete="off">
-                    <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
-                    <ul id="multi-datalist-ul" class="datalist-ul"></ul>
-                </div>
-            </div>
-            <div class="form-group">
-                <input type="submit" value="Create" class="btn btn-primary" />
-            </div>
-        </form>
+<div class="create-page">
+
+    <div style="display: flex; justify-content: space-between; align-items: center">
+        <h1>Create doctor</h1>
+
+        <a asp-action="List">Back to List</a>
     </div>
-</div>
 
-<div>
-    <a asp-action="List">Back to List</a>
+    <form asp-action="Create">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="form-group">
+            <label asp-for="Name" class="control-label"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="ContactPhone" class="control-label">Contact Phone</label>
+            <input asp-for="ContactPhone" class="form-control" />
+            <span asp-validation-for="ContactPhone" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Age" class="control-label"></label>
+            <input asp-for="Age" class="form-control" />
+            <span asp-validation-for="Age" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="VisitPrice" class="control-label"></label>
+            <input asp-for="VisitPrice" class="form-control" />
+            <span asp-validation-for="VisitPrice" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="flex-basis: 100%;">
+            <label asp-for="ProffecionalExperienceFrom" class="control-label"></label>
+            <input asp-for="ProffecionalExperienceFrom" class="form-control" />
+            <span asp-validation-for="ProffecionalExperienceFrom" class="text-danger"></span>
+        </div>
+        <div class="form-group" style="flex-basis: 100%;display: flex;">
+            <div id="datalist" class="datalist" style="flex-grow: 1; margin-right: 20px">
+                <input id="datalist-value-input" type="hidden" asp-for="ClinicId" />
+                <input id="datalist-input" class="datalist-input" type="text" placeholder="Clinic" autocomplete="off">
+                <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
+                <ul id="datalist-ul" class="datalist-ul"></ul>
+            </div>
+
+            <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("Create", "Clinic", new { callbackUrl = ViewContext.HttpContext.Request.Path + ViewContext.HttpContext.Request.QueryString })'">Create new clinic</button>
+        </div>
+        <div class="form-group" style="flex-basis: 100%;">
+            <div id="treat-select-inputs" style="display: flex; align-items: center; margin-bottom: 10px;"></div>
+            <div id="multi-datalist" class="datalist">
+                <input id="multi-datalist-input" class="datalist-input" type="text" placeholder="Treat" autocomplete="off">
+                <i id="datalist-icon" class="icon iconfont icon-arrow"></i>
+                <ul id="multi-datalist-ul" class="datalist-ul"></ul>
+            </div>
+        </div>
+        <div class="form-group" style="flex-basis: 100%;">
+            <button style="width: 50%; margin: 0 auto; display: block" class="btn btn-primary">Create doctor</button>
+        </div>
+    </form>
+
 </div>
 
 @section Scripts {

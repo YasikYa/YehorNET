@@ -1,44 +1,37 @@
 ﻿@model IEnumerable<YehorNET.Models.DoctorsListItemViewModel>
 
 @{
-    ViewData["Title"] = "List";
+    ViewData["Title"] = "List of doctors";
 }
 
-<h1>List</h1>
-@if (User.IsInRole("Admin"))
-{
-    <div>
-        <input type="button" value="Create Doctor" class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Doctors")'" />
-    </div>
-}
+<header style="margin-block-end: 40px; display: flex; justify-content: space-between; align-items: center;width: 100%">
+    <h2>List of doctors according to your search</h2>
+
+    @if (User.IsInRole("Admin"))
+    {
+        <button class="btn btn-primary" onclick="location.href = '@Url.Action("Create", "Doctors")'">Create Doctor</button>
+    }
+</header>
+
+
+
 <table class="table">
     <thead>
         <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Name)
-            </th>
-            <th>
-                <a href="@ViewBag.RateSort">Rate</a>
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CommentsCount)
-            </th>
-            <th></th>
+            <th>@Html.DisplayNameFor(model => model.Name)</th>
+            <th><a href="@ViewBag.RateSort">Rate</a></th>
+            <th>@Html.DisplayNameFor(model => model.CommentsCount)</th>
+            <th>Specialty</th>
+            <th><span hidden>Actions</span></th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Name)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Rate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CommentsCount)
-                </td>
+                <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                <td>@Html.DisplayFor(modelItem => item.Rate)</td>
+                <td>@Html.DisplayFor(modelItem => item.CommentsCount)</td>
                 <td>
                     @foreach (var treat in item.Treats)
                     {
