@@ -50,7 +50,17 @@ class MultiDataList {
         list.addEventListener("click", (e) => {
             if (e.target.nodeName.toLocaleLowerCase() === "li") {
                 container.classList.remove("active");
-                selectContainerId.insertAdjacentHTML("beforeend", `<div id=${e.target.id}><input type='hidden' value=${e.target.id} name='Treats' /><span>${e.target.innerHTML}</span></div>`);
+                selectContainerId.insertAdjacentHTML("beforeend", `
+                    <div id=${e.target.id}>
+                        <input type='hidden' value=${e.target.id} name='Treats' />
+                        <button class="btn btn-outline-primary" style="margin-right: 10px;">
+                            <span>${e.target.innerHTML}</span>
+                            <svg width="15" height="15" viewBox="0 0 20 20">
+                                <path fill="currentColor" d="M17.453.667L10 8.12 2.547.667l-1.88 1.88L8.12 10 .667 17.453l1.88 1.88L10 11.88l7.453 7.453 1.88-1.88L11.88 10l7.453-7.453z"></path>
+                            </svg>
+                        </button>
+                    </div>
+                `);
                 this.selected.push(e.target.id);
                 datalist.create(input.value);
 

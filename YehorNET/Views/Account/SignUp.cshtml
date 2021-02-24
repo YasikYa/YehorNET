@@ -2,10 +2,10 @@
     ViewData["Title"] = "Sign up";
 }
 
-<div class="auth-up-page">
+<div class="auth-page">
     <h1>Sign up</h1>
 
-    @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @class = "auth-up-page__form" }))
+    @using (Html.BeginForm("SignUp", "Account", FormMethod.Post, new { @class = "auth-page__form" }))
     {
         <div class="form-group mb-4">
             <label for="inputName" class="mb-2">Username</label>

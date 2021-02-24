@@ -2,10 +2,10 @@
     ViewData["Title"] = "Login";
 }
 
-<div class="auth-up-page">
+<div class="auth-page">
     <h1>Login</h1>
 
-    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "auth-up-page__form" }))
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { @class = "auth-page__form" }))
     {
         @Html.Hidden("returnUrl", (string)ViewBag.ReturnUrl)
 
